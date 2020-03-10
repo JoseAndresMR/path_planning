@@ -109,12 +109,12 @@ public:
 		// set the bounds for the R^3 part of SE(3)
 		ob::RealVectorBounds bounds(3);
 
-		bounds.setLow(0,-20);
-		bounds.setHigh(0,20);
-		bounds.setLow(1,-20);
-		bounds.setHigh(1,20);
-		bounds.setLow(2,0);
-		bounds.setHigh(2,20);
+		bounds.setLow(0,-6);
+		bounds.setHigh(0,25);
+		bounds.setLow(1,-6);
+		bounds.setHigh(1,35);
+		bounds.setLow(2,1.2);
+		bounds.setHigh(2,1.4);
 
 		space->as<ob::SE3StateSpace>()->setBounds(bounds);
 
@@ -210,7 +210,7 @@ public:
 			trajectory_msgs::MultiDOFJointTrajectoryPoint point_msg;
 
 			msg.header.stamp = ros::Time::now();
-			msg.header.frame_id = "world";
+			msg.header.frame_id = "map";
 			msg.joint_names.clear();
 			msg.points.clear();
 			msg.joint_names.push_back("Quadcopter");
@@ -269,7 +269,7 @@ public:
 	            // extract the second component of the state and cast it to what we expect
 				const ob::SO3StateSpace::StateType *rot = se3state->as<ob::SO3StateSpace::StateType>(1);
 				
-				marker.header.frame_id = "world";
+				marker.header.frame_id = "map";
 				marker.header.stamp = ros::Time();
 				marker.ns = "path";
 				marker.id = idx;
@@ -286,9 +286,9 @@ public:
 				marker.scale.y = 0.15;
 				marker.scale.z = 0.15;
 				marker.color.a = 1.0;
-				marker.color.r = 0.0;
+				marker.color.r = 1.0;
 				marker.color.g = 1.0;
-				marker.color.b = 0.0;
+				marker.color.b = 1.0;
 				vis_pub.publish(marker);
 				// ros::Duration(0.1).sleep();
 				std::cout << "Published marker: " << idx << std::endl;  
