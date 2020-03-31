@@ -94,7 +94,7 @@ public:
 	// Constructor
 	planner(void)
 	{
-		Quadcopter = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Box(0.3, 0.3, 0.1));
+		Quadcopter = std::shared_ptr<fcl::CollisionGeometry>(new fcl::Box(1.5, 1.5, 0.1));	//TODO(JoseAndres): Set collision boundaries
 		fcl::OcTree* tree = new fcl::OcTree(std::shared_ptr<const octomap::OcTree>(new octomap::OcTree(0.1)));
 		tree_obj = std::shared_ptr<fcl::CollisionGeometry>(tree);
 		
@@ -109,12 +109,12 @@ public:
 		// set the bounds for the R^3 part of SE(3)
 		ob::RealVectorBounds bounds(3);
 
-		bounds.setLow(0,-6);
-		bounds.setHigh(0,25);
-		bounds.setLow(1,-6);
-		bounds.setHigh(1,35);
+		bounds.setLow(0,-60);
+		bounds.setHigh(0,60);
+		bounds.setLow(1,-60);
+		bounds.setHigh(1,60);
 		bounds.setLow(2,1.2);
-		bounds.setHigh(2,1.4);
+		bounds.setHigh(2,1.6);
 
 		space->as<ob::SE3StateSpace>()->setBounds(bounds);
 
